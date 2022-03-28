@@ -1,0 +1,1 @@
+Will try to install VMware and run Kali virtually. Running on M1 Mac may be difficult
