@@ -1,6 +1,11 @@
 # Prerequisites
 *.d
 
+#from rubric
+.DS_Store
+*.pyc
+__pycache__/
+
 # Object files
 *.o
 *.ko
