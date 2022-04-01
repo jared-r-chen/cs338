@@ -1,0 +1,25 @@
+Jared Chen
+4/1/2022
+
+1. ip a
+2. ping <hostname>
+3. host <ip>
+4. Transfer file using ssh
+	Sudo start ssh.socket (open port 22 for listening if not open on receiving machine)
+	On separate machine: scp <file> <server name>@<ip>:<location>
+5. sudo netstat -tnlp | grep :22 (specific port 22) 
+6. sudo netstat -tnlp
+7. wget <web address>
+8. curl -I <web address>
+9. curl --verbose <web address>
+
+Citations:
+- https://linuxize.com/post/check-listening-ports-linux/ 
+- https://linuxconfig.org/how-to-check-my-local-and-external-ip-address-on-kali-linux 
+- https://linuxhint.com/find-hostname-ip-linux/#:~:text=The%20simplest%20method%20to%20get,to%20communicate%20with%20a%20host
+- https://www.youtube.com/watch?v=fmMg6cyww14 
+- https://miloserdov.org/?p=3462 
+- https://serverfault.com/questions/249483/shell-command-to-see-the-http-headers
+- https://www.lifewire.com/uses-of-command-wget-2201085
+
+
