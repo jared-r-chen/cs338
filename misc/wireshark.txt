@@ -1,0 +1,33 @@
+Jared Chen
+4/2/2022
+
+===== DAYTIME =====
+
+1. TCP handshake
+	1	192.168.108.128	132.163.96.6	TCP	74	37234 → 13 [SYN] Seq=0 Win=64240 Len=0 MSS=1460 SACK_PERM=1 TSval=3374326993 TSecr=0 WS=128
+
+	2	132.163.96.6	192.168.108.128	TCP	60	13 → 37234 [SYN, ACK] Seq=0 Ack=1 Win=64240 Len=0 MSS=1460
+	3	0.029679343	192.168.108.128	132.163.96.6	TCP	54	37234 → 13 [ACK] Seq=1 Ack=1 Win=64240 Len=0
+
+2. Port 13, ports are used for identifying unique transactions.
+3. Frame 4 → 132.163.96.6	192.168.108.128	DAYTIME	105	DAYTIME Response
+4. There is a daytime protocol which holds the date time information
+5. [SYN] means synchronization packet
+6. [ACK] means acknowledgment packet
+7. [FIN] means termination packet
+8. For me the client initialed the closing of the TCP protocol because it was the first source to send a FIN tag
+
+===== HTTP =====
+
+1. 2 TCP connections were opened
+2. The index.html request was sent on frame 7:
+	7	0.048976381	192.168.108.128	45.79.89.123	HTTP	396	GET /index.html HTTP/1.1
+3. The jeff_square_head.jpg was requested on frame 11:
+	11	0.169399639	192.168.108.128	45.79.89.123	HTTP	365	GET /jeff_square_head.jpg HTTP/1.1 
+
+===== QUESTIONS =====
+
+1. What is the PSH tag? What packet does this refer to?
+2. What is the [TCP Keep-Alive] tag mean?
+3. Is there a difference between frame number and time in terms of order?
+
