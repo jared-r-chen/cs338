@@ -10,7 +10,7 @@ Jared Chen
 
 2. Port 13, ports are used for identifying unique transactions.
 3. Frame 4 → 132.163.96.6	192.168.108.128	DAYTIME	105	DAYTIME Response
-4. There is a daytime protocol which holds the date time information
+4. The first 5 digits represent the modified Julian date. After the hours minutes seconds, we have a TT code which indicates if the US is. on standard time or daylight savings time. Afterwards we have the L digit which indicates whether leap second will be added or subtracted. Then we have DUT1 which is a factor for converting UTC to an older form of universal time. Then we have msADV which is a 5 digit code that displays the number of milliseconds that NIST advances the time code.
 5. [SYN] means synchronization packet
 6. [ACK] means acknowledgment packet
 7. [FIN] means termination packet
@@ -29,4 +29,7 @@ Jared Chen
 1. What is the PSH tag? What packet does this refer to?
 2. What is the [TCP Keep-Alive] tag mean?
 3. Is there a difference between frame number and time in terms of order?
+
+===== CITATION =====
+https://www.nist.gov/pml/time-and-frequency-division/time-distribution/automated-computer-time-service-acts
 
