@@ -1,0 +1,47 @@
+Jared Chen
+4/11/2022
+CS338
+
+=====DIFFIE HELLMAN=====
+Shared key: 36
+
+We know g = 11 and p = 59 and Alice sends 57 over the wire to Bob and Bob sends 44 over the wire to Alice. Therefore we know 57 = 11 ** a % 59 and 44 = 11 ** b % 59 where a and b are the secret numbers of Alice and Bob respectively. We can brute force a and b by checking every possible value using a simple program. 
+
+for i in range(59):
+    if (44 == 11**i %59):
+        bob_val = i
+
+Using something like the above code, we find that two potential values or secret numbers are a = 36 and b = 15. Using these two numbers we can find the key: 57 ** 15 % 59 and 44 ** 36 % 59. We find that both these equations result in 36, therefore we've found that the key Alice and Bob agreed on is 36.
+
+If the integers involved were much larger than brute forcing wouldn't be feasible. The issue would arise during the brute force step were we solve for a and b. There could potentially be multiple possible values for a and b but only one pair would be correct. The number of pairs to check would increase exponentially, and at a large enough number, the brute force method is no longer efficient for cracking the Diffie Hellman exchange.
+
+======RSA=====
+Encrypted message: Hey Bob. It's even worse than we thought! Your pal, Alice. https://www.schneier.com/blog/archives/2022/04/airtags-are-used-for-stalking-far-more-than-previously-reported.html
+
+Alice encoding:
+First Alice takes her massage and converts it to ASCII values. Then for every ASCII value she does the following operation: e * x % n where e = 13 (part of Bobs public key), x = the current ASCII value, and n = 5561 (part of Bobs public key). This list of ASCII values is now encoded and only Bob can decode it.
+
+Decoding:
+The first thing we need to find is our p and q values. Looking at the factors of 5561, we see our only possible factors are 1, 67, 83, and 5561. We use 67 and 87 because 67 * 87 = 5561 and they are both prime. We know e = 13 so we just need to calculate d. We know e * d %((p - 1)(q - 1)) = 1. Now we can run a simple script to brute force out the d value (5000 is an arbitrary number).
+
+for i in range(5000):
+    if (13 * i % 5412 == 1):
+        print(i)
+
+We find d = 1249. 
+
+Knowing all these values we can get the original ASCII values by running the encoded text through a simple for loop. 
+
+for val in rsa_vals:
+     res.append(val**1249 % 5561)
+print(res)
+
+Res in this case contains the decoded ASCII values, this converted back to plain text yields our decoded message. 
+
+This would not work with larger values since factoring large numbers is extremely taxing for computers. So the step where I calculate 67 and 87 as p and q would not be computationally efficient with a large enough n value.
+
+The message encoded by Alice would be insecure even if Bob's keys were larger since no matter the operation, encrypting the same plaintext always yields the same cipher text. Therefore with enough messages eve could simply guess the corresponding plaintext to an encoded message. 
+
+
+
+
