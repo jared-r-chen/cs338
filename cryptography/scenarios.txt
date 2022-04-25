@@ -1,0 +1,27 @@
+Jared Chen
+4/23/2022
+CS338
+
+1. First use the Diffie-Hellman key exchange to allow Alice and bob to agree on secret key K. Using K Alice can use AES to encrypt M and send it to Bob by doing AES(K, M). Using K and having C, bob can do AES_D(K, C) to get M. The Diffie-Hellman key exchange allows Alice and Bob to agree on K without K every being sent out on the wire, therefore Eve cannot get K. Without K, it is computationally inefficient for Eve to decrypt C, therefore she cannot read M.
+
+2. First Alice creates a hash D = H(M). Alice can then create a digital signature by using the hash and her private key such that sig = E(S_A, H). Alice now send M || sig. Bob can hash M and using P_A, Bob can get D Alice computed. If both hashes match up, Bob knows M was not modified. Mal can see and modify M in this scenario, However, Mal does not have S_A, therefore if she changes M she cannot recompute Alices signature. Therefore when Bob computes the hash, the hash from the modified M and Alices M will not match up, and Bob will know modification occurred.
+
+3. First Bob can send Alice a challenge such that only Alice using S_A can decrypt the message (like an encrypted random number). Alice sends this number back to Bob and if the number is what he encrypted, he knows he's talking to Alice. Using the Diffie-Hellman key exchange Alice and Bob agree on secret key K. Alice computes C = AES(K, M) and sends it to. Bob can get M by use AES_D(K, C). 
+
+4. 
+	a. PITM attack between Bob and the CA. In this case Bob wouldn't have the correct P_A. In conjunction with another PITM attack between Alice and bob, Mal could "sign" C using the fake S_A that matches the fake P_A and send it Bob. Bob would think he has a valid signature. As the judge I think it would be possible as PITM attacks are always possible, though I'm sure its still hard to pull off.
+
+	b. If Mal could find another contract that when hashed, caused a collision with the hash of Bobs contract, Mal could sit in between Bob and Alice, switch the contracts, and the signature from Alice would be valid for both contracts. In this case Alice would provide her signature for Mals contract, but that signature would work for Bobs contract as well. This would be nearly impossible. Finding a suitable contract that has the same digest as the original contract is basically impossible, so this really isn't viable. 
+
+	c. It is possible there was a discrepancy between the contract Alice viewed and actually signed. The contract displayed on Alices screen could be used to hide Bobs real contract, so when Alice signs it, she signs the real contract but only sees the fake contract (perhaps performed by Mal). In this case Bob would get Alices signature, but Alice would think she signed a different contract, leading her to unknowingly break the contract. I would say this is possible but very hard to do. Additionally this would require very specific vulnerabilities in how Alice is opening/viewing the contract.
+
+5. To make sig_CA, first we need some sort of data, something like P_B, then we hash it such that D = H(M) (M is our data in this case). We can then encrypt D such that C = E(S_CA, D). Now if anyone wants to check the authenticity of sig_CA, they can compute the hash of P_B, and decrypt C using P_CA. If the hashes match up, then we know the CA has signed off on P_B being bob.com's public key.
+
+6. Alice could issue some challenge to Bob. She could create some random number, encrypt it using C = E(P_B, R), and send C to Bob. Bob can decrypt it using his secret key and send R back to Alice. If the R sent back is the same as the R Alice sent, she knows Bob has S_B and presumable is the real Bob.
+
+7.
+	a. Mal could send Bobs certificate to Alice since it is publicly available. Just showing the certificate does not prove Mal is Bob, but it might be enough to trick Alice.
+
+	b. Though very difficult and unlikely, certificates can be faked. Mal could create a fake certificate and use that in a variety of ways to convince Alice that Mal is Bob.
+
+	c. Depending on how the certificate authorities signature is created, Mal could perform a PITM attack between Alice and the CA and concatenate/replace information in the sig_CA that may cause Alice to believe she is talking to Bob when in reality she isn't.
