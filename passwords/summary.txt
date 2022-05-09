@@ -1,0 +1,59 @@
+Jared Chen 
+5/7/2022
+
+cracked1: python passwords.py  0.59s user 0.04s system 99% cpu 0.633 total
+cracked2: python passwords.py  6153.34s user 829.49s system 20% cpu 9:14:51.90 total
+cracked3: python passwords.py  344.68s user 45.49s system 31% cpu 20:26.10 total
+
+Part 1
+Total time: 0.59s
+Number of hashes computed: 267751
+Passwords cracked: 2805
+Time per hash computed: 0.0000221
+Time per password cracked: 0.000210
+Passwords cracked per number of hashes computed: 0.0105
+
+Part 2
+Total time: 6153.34s
+Number of hashes computed: 2227962132
+Passwords cracked: 82
+Time per hash computed: 0.00000276171
+Time per password cracked: 75.0365
+Passwords cracked per number of hashes computed: 3.68049343e-8
+
+Part 3
+Total time: 344.68s
+Number of hashes computed: 134014404
+Passwords cracked: 0
+Time per hash computed: 0.00000257
+Time per password cracked: NA
+Passwords cracked per number of hashes computed: NA
+
+Analysis:
+- The time per hash did not change by much. part 2 and part 3 have similar hash times
+but part 1 was slightly slower. this was because all words were put in a dictionary with their
+hash, then usernames were matched to passwords, which is a slightly different process compared
+to part 2 and part 3.
+
+- yes, there were n^2 - n more passwords to check in part 2, so finding valid passwords was way slower.
+finding passwords in part 2 was 357316 times slower than in part 1. Part3 didn't even yield a single
+password since there were 16^8 n passwords to check.
+
+- For the first phase you would need n memory to store all the hashes where n is
+the number of words. in phase two you need n^2 memory. for phase three you would have 
+16^8 salts, then for each salt you concatenate it with a hash. therefore you would need
+n*16^8 memory.
+
+- a. storng passwords as hashes means the actual password isn't known, therefore if someone
+gets into the data base, they cannot access accounts on the database.
+
+  b. the act of hashing is fast, but still takes time. saving passwords as hashes can further
+slow down brute force attacks as each potential passwords needs to be hashed.
+
+  c. the same plain text will result in the same hash, adding salt then rehashing adds another 
+  layer of protection as the same passwords will no longer hash the the same digest, but the digest
+  can easily be calculated with the salt.
+
+
+
+
