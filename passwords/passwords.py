@@ -94,7 +94,7 @@ while(len(counter) < 9):
     for word in words:
         hash_counter += 1
         print(hash_counter)
-        password =  word # type=string
+        password =  salt + word # type=string
         encoded_password = password.encode('utf-8') # type=bytes
         hasher = hashlib.sha256(encoded_password)
         digest = hasher.digest() # type=bytes

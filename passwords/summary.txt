@@ -50,9 +50,8 @@ gets into the data base, they cannot access accounts on the database.
   b. the act of hashing is fast, but still takes time. saving passwords as hashes can further
 slow down brute force attacks as each potential passwords needs to be hashed.
 
-  c. the same plain text will result in the same hash, adding salt then rehashing adds another 
-  layer of protection as the same passwords will no longer hash the the same digest, but the digest
-  can easily be calculated with the salt.
+  c. The people who hace access to this data for their jobs are not necessarily trusted entities,
+  hashing pervents them from viewing your password. 
 
 
 
