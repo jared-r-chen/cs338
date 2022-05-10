@@ -39,10 +39,11 @@ to part 2 and part 3.
 finding passwords in part 2 was 357316 times slower than in part 1. Part3 didn't even yield a single
 password since there were 16^8 n passwords to check.
 
-- For the first phase you would need n memory to store all the hashes where n is
-the number of words. in phase two you need n^2 memory. for phase three you would have 
-16^8 salts, then for each salt you concatenate it with a hash. therefore you would need
-n*16^8 memory.
+- For phase one we have 267751 words so we have 267751 hashs which take up about 17.13 mb after 
+overhead is accounted for. for phase 2 we have 267751^2 hashes, so to store all those hashes it takes
+around 4.6 tb after accounting for overhead. for part three we have 16^8 potential salts and 267751
+potential passwords. In total we have 16^8 * 267751 potential passwords. Therefore for phase three it 
+would take about 73.6 pentabytes to map all passwords with salts to their hashes.
 
 - a. storng passwords as hashes means the actual password isn't known, therefore if someone
 gets into the data base, they cannot access accounts on the database.
@@ -52,6 +53,9 @@ slow down brute force attacks as each potential passwords needs to be hashed.
 
   c. The people who hace access to this data for their jobs are not necessarily trusted entities,
   hashing pervents them from viewing your password. 
+
+  d. if the passwords are stored as hashes, hashes can be done by clients so the hash is sent across 
+  the network, meaning the password never actually leaves the clients machine.
 
 
 
